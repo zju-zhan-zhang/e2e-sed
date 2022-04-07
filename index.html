@@ -25,10 +25,10 @@
             <div  align="center"><sup>Workflow for the TTS model that converts the units into the audio.</sup></div>
         </div>
 		<p>
-		We use the Transformer-TTS[1] as the TTS backbone and the Style-Melgan[2] as the vocoder. 
+		We use the Transformer-TTS[1] as the TTS backbone and the Melgan[2] as the vocoder. 
 		The discrete unit is set as the "text" for input of the encoder. 
-	       	For decoder, its input is the previously predicted spectrum. The decoder predict the future spectrum regressively. Note the model is the multi-speaker version. We add the x-vector as the speaker embedding to clone the style.
-		We train on both of the native (Librispeech) and non-native (L2Arctic) utterances, so that each token can be properly mapped to the spectrum.
+	       	For decoder, its input is the previously predicted spectrum. The decoder predict the future spectrum regressively. Note the model is the multi-speaker version. We add the x-vector[3] as the speaker embedding to clone the style.
+		We train the model on both of the native (Librispeech) and non-native (L2Arctic) utterances, so that each token can be properly mapped to the spectrum.
 		</p>
 		<p>After the training converges, we can replace the original unit for the native utterance to simulate mispronunciation. The audio samples are listed below.</p>
 
@@ -39,9 +39,9 @@
 
         <h3>Random Replacement</h3>
 	<p>For this section, we randomly replace the units to simulate mispronounciations. The replacement settings are the same as our paper. The audio samples are divided into two parts. The first part includes the raw waveform (Raw) and the waveform converted from the original unit sequence (Raw Units). The second part is constructed by the waveform converted from the randomly replaced units (Random n).</p>
-	<p>Note that certain replaced unit sequences may fail to convert to the spectrum, as the replaced unit combinationmay not been seen in the trainset.</p>
-	<h4>Sample 1</h4>
-	<sup><strong>2428_83699_000044_000001: </strong>I'm afraid I can offer you nothing to drink.</sup>
+	<p>Note that certain replaced unit sequences may fail to convert to the spectrum, as the replaced unit combination may not been seen in the trainset. </p>
+		<h4>Sample 1</h4>
+	<sup><strong>1988_147956_000009_000009: </strong>She shook grandmother's hand energetically.</sup>
 	<div></div>
 	<table><thead>
 	<tr>
@@ -49,8 +49,8 @@
 		<th style="text-align: center">Raw Units</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._raw.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._raw_unit.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._raw.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._raw_unit.wav?raw=true" controls preload></audio></td>
 	</tr>
 
 	<tr>
@@ -59,9 +59,9 @@
 		<th style="text-align: center">Random 3</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/1_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/2_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/1_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/2_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
 	</tr>
 	
 		<tr>
@@ -70,11 +70,14 @@
 		<th style="text-align: center">Random 6</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/3_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/4_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/5_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/3_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/4_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/5_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
 	</tr>
 	</tbody></table>
+
+
+
 
 	<h4>Sample 2</h4>
 	<sup><strong>8842_302203_000011_000006: </strong>In the first, I tell, in order, this imagination.</sup>
@@ -113,9 +116,8 @@
 	</tbody></table>
 
 
-
 	<h4>Sample 3</h4>
-	<sup><strong>1988_147956_000009_000009: </strong>She shook grandmother's hand energetically.</sup>
+	<sup><strong>2428_83699_000044_000001: </strong>I'm afraid I can offer you nothing to drink.</sup>
 	<div></div>
 	<table><thead>
 	<tr>
@@ -123,8 +125,8 @@
 		<th style="text-align: center">Raw Units</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._raw.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._raw_unit.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._raw.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._raw_unit.wav?raw=true" controls preload></audio></td>
 	</tr>
 
 	<tr>
@@ -133,9 +135,9 @@
 		<th style="text-align: center">Random 3</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/0_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/1_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/2_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/0_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/1_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/2_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
 	</tr>
 	
 		<tr>
@@ -144,16 +146,130 @@
 		<th style="text-align: center">Random 6</th>
 	</tr></thead><tbody>
 	<tr>
-                    <td><audio src="samples1/3_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/4_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
-                    <td><audio src="samples1/5_1988_147956_000009_000009_She shook grandmother's hand energetically._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/3_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/4_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples1/5_2428_83699_000044_000001_I'm afraid I can offer you nothing to drink._p.wav?raw=true" controls preload></audio></td>
 	</tr>
 	</tbody></table>
 
 
+        <h3>Fixed Replacement</h3>
+	<p>For this section, we fix the modification to the [0.4, 0.6] part of the utterance. Then, we increase j (the index of the sorted unit for replacement) to see the effect. For k=4096, we choose j=100, 200, 400 for experiments. A higher j means the replaced unit deviates more from the original unit. We also plot the phoneme-level distance of the replacement on the y-axis. </p>
+	<p>The samples show that the proposed distance is highly related to the degree of mispronunciation.</p>
 
-	
 
+
+	<h4>Sample 1</h4>
+	<sup><strong>5338_284437_000041_000001: </strong>Pretty wet Was the journey, you can bet!</sup>
+	<div></div>
+	<table><thead>
+	<tr>
+		<th style="text-align: center">Raw</th>
+		<th style="text-align: center">Raw Units</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><audio src="samples2/0_0_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__gt.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_0_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__p.wav?raw=true" controls preload></audio></td>
+	</tr>
+
+	<tr>
+		<th style="text-align: center">Fixed (j=100)</th>
+		<th style="text-align: center">Fixed (j=200)</th>
+		<th style="text-align: center">Fixed (j=400)</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><img width="330" alt=""
+              src="samples2/0_100_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_200_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_400_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__log.png"><br></td>
+	</tr>
+
+	<tr>
+                    <td><audio src="samples2/0_100_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_200_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_400_5338_284437_000041_000001_Pretty wet Was the journey, you can bet!__p.wav?raw=true" controls preload></audio></td>
+	</tr>	
+		</tbody></table>
+
+
+
+
+
+
+	<h4>Sample 2</h4>
+	<sup><strong>2902_9006_000020_000000: </strong>And their strength was felt at once.</sup>
+	<div></div>
+	<table><thead>
+	<tr>
+		<th style="text-align: center">Raw</th>
+		<th style="text-align: center">Raw Units</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><audio src="samples2/0_0_2902_9006_000020_000000_And their strength was felt at once._gt.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_0_2902_9006_000020_000000_And their strength was felt at once._p.wav?raw=true" controls preload></audio></td>
+	</tr>
+
+	<tr>
+		<th style="text-align: center">Fixed (j=100)</th>
+		<th style="text-align: center">Fixed (j=200)</th>
+		<th style="text-align: center">Fixed (j=400)</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><img width="330" alt=""
+              src="samples2/0_100_2902_9006_000020_000000_And their strength was felt at once._log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_200_2902_9006_000020_000000_And their strength was felt at once._log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_400_2902_9006_000020_000000_And their strength was felt at once._log.png"><br></td>
+	</tr>
+
+	<tr>
+                    <td><audio src="samples2/0_100_2902_9006_000020_000000_And their strength was felt at once._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_200_2902_9006_000020_000000_And their strength was felt at once._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_400_2902_9006_000020_000000_And their strength was felt at once._p.wav?raw=true" controls preload></audio></td>
+	</tr>
+	</tbody></table>
+
+		<h4>Sample 3</h4>
+	<sup><strong>1462_170138_000022_000003: </strong>Hilda had never replied to his letter.</sup>
+	<div></div>
+	<table><thead>
+	<tr>
+		<th style="text-align: center">Raw</th>
+		<th style="text-align: center">Raw Units</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><audio src="samples2/0_0_1462_170138_000022_000003_Hilda had never replied to his letter._gt.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_0_1462_170138_000022_000003_Hilda had never replied to his letter._p.wav?raw=true" controls preload></audio></td>
+	</tr>
+
+	<tr>
+		<th style="text-align: center">Fixed (j=100)</th>
+		<th style="text-align: center">Fixed (j=200)</th>
+		<th style="text-align: center">Fixed (j=400)</th>
+	</tr></thead><tbody>
+	<tr>
+                    <td><img width="330" alt=""
+              src="samples2/0_100_1462_170138_000022_000003_Hilda had never replied to his letter._log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_200_1462_170138_000022_000003_Hilda had never replied to his letter._log.png"><br></td>
+                    <td><img width="330" alt=""
+              src="samples2/0_400_1462_170138_000022_000003_Hilda had never replied to his letter._log.png"><br></td>
+	</tr>
+
+	<tr>
+                    <td><audio src="samples2/0_100_1462_170138_000022_000003_Hilda had never replied to his letter._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_200_1462_170138_000022_000003_Hilda had never replied to his letter._p.wav?raw=true" controls preload></audio></td>
+                    <td><audio src="samples2/0_400_1462_170138_000022_000003_Hilda had never replied to his letter._p.wav?raw=true" controls preload></audio></td>
+	</tbody></table>
+
+
+<h3>References</h3>
+<p>[1] Okamoto, T., Toda, T., Shiga, Y., & Kawai, H. (2020, May). Transformer-based text-to-speech with weighted forced attention. In 2020 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) (pp. 6729-6733). IEEE.</p>
+<p>[2] Kumar, K., Kumar, R., de Boissiere, T., Gestin, L., Teoh, W. Z., Sotelo, J., ... & Courville, A. C. (2019). Melgan: Generative adversarial networks for conditional waveform synthesis. Advances in neural information processing systems, 32.</p>
+<p>[3] Snyder, D., Garcia-Romero, D., Sell, G., Povey, D., & Khudanpur, S. (2018, April). X-vectors: Robust dnn embeddings for speaker recognition. In 2018 IEEE international conference on acoustics, speech and signal processing (ICASSP) (pp. 5329-5333). IEEE.</p>
 
     </main>
 </body>
